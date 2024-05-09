@@ -1,0 +1,2 @@
+docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=zaq1@WSX" -p 1433:1433 --name sqlserver -d mcr.microsoft.com/mssql/server:latest
+Scaffold-DbContext "Server=127.0.0.1,1433;Database=WarehouseDB;User Id=sa;Password=zaq1@WSX;MultipleActiveResultSets=True;Encrypt=False;" Microsoft.EntityFrameWorkCore.SqlServer -outputdir Models -context WarehouseDbContext 
