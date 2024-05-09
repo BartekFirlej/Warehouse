@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 using Warehouse.Models;
 
 namespace Warehouse;
@@ -46,7 +48,7 @@ public partial class WarehouseDbContext : DbContext
     {
         modelBuilder.Entity<Address>(entity =>
         {
-            entity.HasKey(e => e.AddressId).HasName("PK__Address__091C2A1B404574C6");
+            entity.HasKey(e => e.AddressId).HasName("PK__Address__091C2A1B7BE2926E");
 
             entity.ToTable("Address");
 
@@ -55,12 +57,13 @@ public partial class WarehouseDbContext : DbContext
 
             entity.HasOne(d => d.City).WithMany(p => p.Addresses)
                 .HasForeignKey(d => d.CityId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Address_City");
         });
 
         modelBuilder.Entity<City>(entity =>
         {
-            entity.HasKey(e => e.CityId).HasName("PK__City__F2D21A96A55FD114");
+            entity.HasKey(e => e.CityId).HasName("PK__City__F2D21A9681D93BCF");
 
             entity.ToTable("City");
 
@@ -71,12 +74,13 @@ public partial class WarehouseDbContext : DbContext
 
             entity.HasOne(d => d.Voivodeship).WithMany(p => p.Cities)
                 .HasForeignKey(d => d.VoivodeshipId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_City_Voivodeship");
         });
 
         modelBuilder.Entity<Country>(entity =>
         {
-            entity.HasKey(e => e.CountryId).HasName("PK__Country__10D160BFADDAA793");
+            entity.HasKey(e => e.CountryId).HasName("PK__Country__10D160BFB5A1AD1C");
 
             entity.ToTable("Country");
 
@@ -86,7 +90,7 @@ public partial class WarehouseDbContext : DbContext
 
         modelBuilder.Entity<Customer>(entity =>
         {
-            entity.HasKey(e => e.CustomerId).HasName("PK__Customer__A4AE64B825FA8004");
+            entity.HasKey(e => e.CustomerId).HasName("PK__Customer__A4AE64B87EB3C008");
 
             entity.Property(e => e.CustomerId).HasColumnName("CustomerID");
             entity.Property(e => e.AddressId).HasColumnName("AddressID");
@@ -97,12 +101,13 @@ public partial class WarehouseDbContext : DbContext
 
             entity.HasOne(d => d.Address).WithMany(p => p.Customers)
                 .HasForeignKey(d => d.AddressId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Customers_Address");
         });
 
         modelBuilder.Entity<Order>(entity =>
         {
-            entity.HasKey(e => e.OrderId).HasName("PK__Orders__C3905BAFF7A0E19B");
+            entity.HasKey(e => e.OrderId).HasName("PK__Orders__C3905BAFD0F8ABE5");
 
             entity.Property(e => e.OrderId).HasColumnName("OrderID");
             entity.Property(e => e.CustomerId).HasColumnName("CustomerID");
@@ -114,16 +119,18 @@ public partial class WarehouseDbContext : DbContext
 
             entity.HasOne(d => d.Customer).WithMany(p => p.Orders)
                 .HasForeignKey(d => d.CustomerId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Orders_Customers");
 
             entity.HasOne(d => d.OrderMethod).WithMany(p => p.Orders)
                 .HasForeignKey(d => d.OrderMethodId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Orders_OrderMethod");
         });
 
         modelBuilder.Entity<OrderDetail>(entity =>
         {
-            entity.HasKey(e => e.OrderDetailId).HasName("PK__OrderDet__D3B9D30CAB4F4274");
+            entity.HasKey(e => e.OrderDetailId).HasName("PK__OrderDet__D3B9D30C06294680");
 
             entity.Property(e => e.OrderDetailId).HasColumnName("OrderDetailID");
             entity.Property(e => e.OrderId).HasColumnName("OrderID");
@@ -132,16 +139,18 @@ public partial class WarehouseDbContext : DbContext
 
             entity.HasOne(d => d.Order).WithMany(p => p.OrderDetails)
                 .HasForeignKey(d => d.OrderId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_OrderDetails_Orders");
 
             entity.HasOne(d => d.Product).WithMany(p => p.OrderDetails)
                 .HasForeignKey(d => d.ProductId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_OrderDetails_Products");
         });
 
         modelBuilder.Entity<OrderMethod>(entity =>
         {
-            entity.HasKey(e => e.OrderMethodId).HasName("PK__OrderMet__C8FAE16DEDBC1417");
+            entity.HasKey(e => e.OrderMethodId).HasName("PK__OrderMet__C8FAE16D50DEF0C8");
 
             entity.ToTable("OrderMethod");
 
@@ -151,7 +160,7 @@ public partial class WarehouseDbContext : DbContext
 
         modelBuilder.Entity<OrderReturn>(entity =>
         {
-            entity.HasKey(e => e.ReturnId).HasName("PK__OrderRet__F445E988790CC077");
+            entity.HasKey(e => e.ReturnId).HasName("PK__OrderRet__F445E988199E15C1");
 
             entity.ToTable("OrderReturn");
 
@@ -162,16 +171,18 @@ public partial class WarehouseDbContext : DbContext
 
             entity.HasOne(d => d.OrderDetail).WithMany(p => p.OrderReturns)
                 .HasForeignKey(d => d.OrderDetailId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Returns_OrderDetails");
 
             entity.HasOne(d => d.ReturnReason).WithMany(p => p.OrderReturns)
                 .HasForeignKey(d => d.ReturnReasonId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Returns_ReturnReason");
         });
 
         modelBuilder.Entity<Product>(entity =>
         {
-            entity.HasKey(e => e.ProductId).HasName("PK__Products__B40CC6EDE49C4E32");
+            entity.HasKey(e => e.ProductId).HasName("PK__Products__B40CC6ED9A140558");
 
             entity.Property(e => e.ProductId).HasColumnName("ProductID");
             entity.Property(e => e.Price).HasColumnType("decimal(10, 2)");
@@ -180,12 +191,13 @@ public partial class WarehouseDbContext : DbContext
 
             entity.HasOne(d => d.ProductType).WithMany(p => p.Products)
                 .HasForeignKey(d => d.ProductTypeId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Product_ProductType");
         });
 
         modelBuilder.Entity<ProductType>(entity =>
         {
-            entity.HasKey(e => e.ProductTypeId).HasName("PK__ProductT__A1312F4E0112CFAC");
+            entity.HasKey(e => e.ProductTypeId).HasName("PK__ProductT__A1312F4EDE42ED52");
 
             entity.Property(e => e.ProductTypeId).HasColumnName("ProductTypeID");
             entity.Property(e => e.ProductTypeName).HasMaxLength(100);
@@ -193,7 +205,7 @@ public partial class WarehouseDbContext : DbContext
 
         modelBuilder.Entity<ReturnReason>(entity =>
         {
-            entity.HasKey(e => e.ReturnReasonId).HasName("PK__ReturnRe__CEA351AECF2E5603");
+            entity.HasKey(e => e.ReturnReasonId).HasName("PK__ReturnRe__CEA351AEE365BE71");
 
             entity.ToTable("ReturnReason");
 
@@ -203,7 +215,7 @@ public partial class WarehouseDbContext : DbContext
 
         modelBuilder.Entity<Voivodeship>(entity =>
         {
-            entity.HasKey(e => e.VoivodeshipId).HasName("PK__Voivodes__5F80A66C4C06F73A");
+            entity.HasKey(e => e.VoivodeshipId).HasName("PK__Voivodes__5F80A66C68D02626");
 
             entity.ToTable("Voivodeship");
 
@@ -213,6 +225,7 @@ public partial class WarehouseDbContext : DbContext
 
             entity.HasOne(d => d.Country).WithMany(p => p.Voivodeships)
                 .HasForeignKey(d => d.CountryId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Voivodeship_Country");
         });
 

@@ -8,6 +8,7 @@ namespace Warehouse.Services
     {
         public Task<List<ProductTypeResponse>> GetProductTypes();
         public Task<ProductTypeResponse> GetProductType(int productTypeId);
+        public Task<ProductType> CheckProductType(int productTypeId);
         public Task<ProductTypeResponse> PostProductType(ProductTypeRequest productTypeDetails);
     }
     public class ProductTypeService : IProductTypeService
@@ -31,14 +32,22 @@ namespace Warehouse.Services
         {
             var productType = await _productTypeRepository.GetProductType(productTypeId);
             if (productType == null)
-                throw new Exception("Not found any product.");
+                throw new Exception(String.Format("Not found any product type with id {0}.", productTypeId));
+            return productType;
+        }
+
+        public async Task<ProductType> CheckProductType(int productTypeId)
+        {
+            var productType = await _productTypeRepository.CheckProductType(productTypeId);
+            if (productType == null)
+                throw new Exception(String.Format("Not found any product type with id {0}.", productTypeId));
             return productType;
         }
 
         public async Task<ProductTypeResponse> PostProductType(ProductTypeRequest productTypeDetails)
         {
             var addedProductType = await _productTypeRepository.PostProductType(productTypeDetails);
-            return ProductType.ProductToResponseDTO(addedProductType);
+            return ProductType.ProductTypeToResponseDTO(addedProductType);
         }
     }
 }

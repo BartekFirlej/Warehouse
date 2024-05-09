@@ -10,7 +10,7 @@ public partial class ProductType
 
     public virtual ICollection<Product> Products { get; set; } = new List<Product>();
 
-    public static ProductTypeResponse ProductToResponseDTO(ProductType productType)
+    public static ProductTypeResponse ProductTypeToResponseDTO(ProductType productType)
     {
         return new ProductTypeResponse
         {

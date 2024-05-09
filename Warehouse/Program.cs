@@ -9,8 +9,10 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddControllers();
 
 builder.Services.AddScoped<IProductTypeRepository, ProductTypeRepository>();
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
 
 builder.Services.AddScoped<IProductTypeService, ProductTypeService>();
+builder.Services.AddScoped<IProductService, ProductService>();
 
 
 builder.Services.AddDbContext<WarehouseDbContext>();

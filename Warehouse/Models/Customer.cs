@@ -8,13 +8,13 @@ public partial class Customer
 
     public string CustomerLastName { get; set; } = null!;
 
-    public string? Email { get; set; }
+    public string Email { get; set; } = null!;
 
-    public string? Phone { get; set; }
+    public string Phone { get; set; } = null!;
 
-    public int? AddressId { get; set; }
+    public int AddressId { get; set; }
 
-    public virtual Address? Address { get; set; }
+    public virtual Address Address { get; set; } = null!;
 
     public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
 }

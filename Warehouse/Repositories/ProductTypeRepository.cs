@@ -8,6 +8,7 @@ namespace Warehouse.Repositories
     {
         public Task<List<ProductTypeResponse>> GetProductTypes();
         public Task<ProductTypeResponse> GetProductType(int productTypeId);
+        public Task<ProductType> CheckProductType(int productTypeId);
         public Task<ProductType> PostProductType(ProductTypeRequest productTypeDetails);
     }
 
@@ -24,7 +25,7 @@ namespace Warehouse.Repositories
         {
             return await _context.ProductTypes
                 .AsNoTracking()
-                .Select(p => ProductType.ProductToResponseDTO(p))
+                .Select(p => ProductType.ProductTypeToResponseDTO(p))
                 .ToListAsync();
         }
 
@@ -33,7 +34,15 @@ namespace Warehouse.Repositories
             return await _context.ProductTypes
                 .AsNoTracking()
                 .Where(p => p.ProductTypeId == productTypeId)
-                .Select(p => ProductType.ProductToResponseDTO(p))
+                .Select(p => ProductType.ProductTypeToResponseDTO(p))
+                .FirstOrDefaultAsync();
+        }
+
+        public async Task<ProductType> CheckProductType(int productTypeId)
+        {
+            return await _context.ProductTypes
+                .AsNoTracking()
+                .Where(p => p.ProductTypeId == productTypeId)
                 .FirstOrDefaultAsync();
         }
 
