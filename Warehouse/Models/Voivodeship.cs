@@ -1,4 +1,6 @@
-﻿namespace Warehouse.Models;
+﻿using Warehouse.DTOs;
+
+namespace Warehouse.Models;
 
 public partial class Voivodeship
 {
@@ -11,4 +13,14 @@ public partial class Voivodeship
     public virtual ICollection<City> Cities { get; set; } = new List<City>();
 
     public virtual Country Country { get; set; } = null!;
+
+    public static VoivodeshipResponse VoivodeshipToResponseDTO(Voivodeship voivodeship)
+    {
+        return new VoivodeshipResponse
+        {
+            VoivodeshipId = voivodeship.VoivodeshipId,
+            VoivodeshipName = voivodeship.VoivodeshipName,
+            CountryId = voivodeship.CountryId
+        };
+    }
 }
