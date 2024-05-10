@@ -48,16 +48,16 @@ namespace Warehouse.Controllers
         [HttpPost]
         public async Task<IActionResult> PostVoivodeship(VoivodeshipRequest voivodeshipDetails)
         {
-            VoivodeshipResponse addedCountry;
+            VoivodeshipResponse addedVoivodeship;
             try
             {
-                addedCountry = await _voivodeshipService.PostVoivodeship(voivodeshipDetails);
+                addedVoivodeship = await _voivodeshipService.PostVoivodeship(voivodeshipDetails);
             }
             catch (Exception e)
             {
                 return BadRequest(e.Message);
             }
-            return CreatedAtAction(nameof(PostVoivodeship), addedCountry);
+            return CreatedAtAction(nameof(PostVoivodeship), addedVoivodeship);
         }
     }
 }
