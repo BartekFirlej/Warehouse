@@ -1,4 +1,6 @@
-﻿namespace Warehouse.Models;
+﻿using Warehouse.DTOs;
+
+namespace Warehouse.Models;
 
 public partial class Country
 {
@@ -7,4 +9,13 @@ public partial class Country
     public string CountryName { get; set; } = null!;
 
     public virtual ICollection<Voivodeship> Voivodeships { get; set; } = new List<Voivodeship>();
+
+    public static CountryResponse CountryToResponseDTO(Country country)
+    {
+        return new CountryResponse
+        {
+            CountryId = country.CountryId,
+            CountryName = country.CountryName
+        };
+    }
 }
