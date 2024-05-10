@@ -13,12 +13,14 @@ builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<ICountryRepository, CountryRepository>();
 builder.Services.AddScoped<IVoivodeshipRepository, VoivodeshipRepository>();
 builder.Services.AddScoped<ICityRepository, CityRepository>();
+builder.Services.AddScoped<IAddressRepository, AddressRepository>();
 
 builder.Services.AddScoped<IProductTypeService, ProductTypeService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICountryService, CountryService>();
 builder.Services.AddScoped<IVoivodeshipService, VoivodeshipService>();
 builder.Services.AddScoped<ICityService, CityService>();
+builder.Services.AddScoped<IAddressService, AddressService>();
 
 
 builder.Services.AddDbContext<WarehouseDbContext>();
