@@ -9,7 +9,7 @@ namespace Warehouse.Repositories
         public Task<List<ReturnReasonResponse>> GetReturnReasons();
         public Task<ReturnReasonResponse> GetReturnReason(int returnReasonId);
         public Task<ReturnReason> CheckReturnReason(int returnReasonId);
-        public Task<ReturnReason> PostReturnReason(RetunReasonRequest returnReasonDetails);
+        public Task<ReturnReasonResponse> PostReturnReason(ReturnReasonRequest returnReasonDetails);
     }
 
     public class ReturnReasonRepository : IReturnReasonRepository
@@ -46,15 +46,12 @@ namespace Warehouse.Repositories
                 .FirstOrDefaultAsync();
         }
 
-        public async Task<ReturnReason> PostReturnReason(RetunReasonRequest returnReasonDetails)
+        public async Task<ReturnReasonResponse> PostReturnReason(ReturnReasonRequest returnReasonDetails)
         {
-            var returnReasonToAdd = new ReturnReason
-            {
-                ReasonDescription = returnReasonDetails.ReasonDescription
-            };
-            await _context.ReturnReasons.AddAsync(returnReasonToAdd);
+            var returnReasonToAdd = ReturnReason.RequestDTOToProductType(returnReasonDetails);
+            var addedReturnReason = await _context.ReturnReasons.AddAsync(returnReasonToAdd);
             await _context.SaveChangesAsync();
-            return returnReasonToAdd;
+            return ReturnReason.ReturnReasonToResponseDTO(addedReturnReason.Entity);
         }
     }
 }

@@ -47,8 +47,7 @@ namespace Warehouse.Services
 
         public async Task<OrderMethodResponse> PostOrderMethod(OrderMethodRequest orderMethodDetails)
         {
-            var addedOrderMethod = await _orderMethodRepository.PostOrderMethod(orderMethodDetails);
-            return OrderMethod.ReturnOrderMethodToResponseDTO(addedOrderMethod);
+            return await _orderMethodRepository.PostOrderMethod(orderMethodDetails);
         }
     }
 }

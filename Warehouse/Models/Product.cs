@@ -26,4 +26,14 @@ public partial class Product
             ProductTypeId = product.ProductTypeId
         };
     }
+
+    public static Product RequestDTOToProduct(ProductRequest productDetails)
+    {
+        return new Product
+        {
+            ProductName = productDetails.ProductName,
+            Price = productDetails.Price,
+            ProductTypeId = productDetails.ProductTypeId
+        };
+    }
 }

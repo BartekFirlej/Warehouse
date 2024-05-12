@@ -1,6 +1,6 @@
 ﻿namespace Warehouse.DTOs
 {
-    public class RetunReasonRequest
+    public class ReturnReasonRequest
     {
         public string ReasonDescription { get; set; } = null!;
     }

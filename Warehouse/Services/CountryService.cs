@@ -47,8 +47,7 @@ namespace Warehouse.Services
 
         public async Task<CountryResponse> PostCountry(CountryRequest countryDetails)
         {
-            var addedCountry = await _countryRepository.PostCountry(countryDetails);
-            return Country.CountryToResponseDTO(addedCountry);
+            return await _countryRepository.PostCountry(countryDetails);
         }
 
     }

@@ -1,4 +1,5 @@
-﻿using Warehouse.DTOs;
+﻿using System.Diagnostics.Metrics;
+using Warehouse.DTOs;
 
 namespace Warehouse.Models;
 
@@ -16,6 +17,14 @@ public partial class Country
         {
             CountryId = country.CountryId,
             CountryName = country.CountryName
+        };
+    }
+
+    public static Country RequestDTOToCountryy(CountryRequest countryDetails)
+    {
+        return new Country
+        {
+            CountryName = countryDetails.CountryName
         };
     }
 }

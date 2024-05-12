@@ -9,7 +9,7 @@ namespace Warehouse.Services
         public Task<List<ReturnReasonResponse>> GetReturnReasons();
         public Task<ReturnReasonResponse> GetReturnReason(int returnReasonId);
         public Task<ReturnReason> CheckReturnReason(int returnReasonId);
-        public Task<ReturnReasonResponse> PostReturnReason(RetunReasonRequest returnReasonDetails);
+        public Task<ReturnReasonResponse> PostReturnReason(ReturnReasonRequest returnReasonDetails);
     }
 
     public class ReturnReasonService : IReturnReasonService
@@ -45,10 +45,9 @@ namespace Warehouse.Services
             return returnReason;
         }
 
-        public async Task<ReturnReasonResponse> PostReturnReason(RetunReasonRequest returnReasonDetails)
+        public async Task<ReturnReasonResponse> PostReturnReason(ReturnReasonRequest returnReasonDetails)
         {
-            var addedReturnReason = await _returnReasonRepository.PostReturnReason(returnReasonDetails);
-            return ReturnReason.ReturnReasonToResponseDTO(addedReturnReason);
+            return await _returnReasonRepository.PostReturnReason(returnReasonDetails);
         }
     }
 }

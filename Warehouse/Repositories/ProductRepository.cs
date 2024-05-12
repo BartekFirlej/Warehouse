@@ -9,7 +9,7 @@ namespace Warehouse.Repositories
         public Task<List<ProductResponse>> GetProducts();
         public Task<ProductResponse> GetProduct(int productId);
         public Task<Product> CheckProduct(int productId);
-        public Task<Product> PostProduct(ProductRequest productDetails);
+        public Task<ProductResponse> PostProduct(ProductRequest productDetails);
     }
 
     public class ProductRepository : IProductRepository
@@ -46,17 +46,12 @@ namespace Warehouse.Repositories
                 .FirstOrDefaultAsync();
         }
 
-        public async Task<Product> PostProduct(ProductRequest productDetails)
+        public async Task<ProductResponse> PostProduct(ProductRequest productDetails)
         {
-            var productToAdd = new Product
-            {
-                ProductName = productDetails.ProductName,
-                Price = productDetails.Price,
-                ProductTypeId = productDetails.ProductTypeId
-            };
-            await _context.Products.AddAsync(productToAdd);
+            var productToAdd = Product.RequestDTOToProduct(productDetails);
+            var addedProduct = await _context.Products.AddAsync(productToAdd);
             await _context.SaveChangesAsync();
-            return productToAdd;
+            return Product.ProductToResponseDTO(addedProduct.Entity);
         }
     }
 }

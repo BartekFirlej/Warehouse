@@ -9,7 +9,7 @@ namespace Warehouse.Repositories
         public Task<List<VoivodeshipResponse>> GetVoivodeships();
         public Task<VoivodeshipResponse> GetVoivodeship(int voivodeshipId);
         public Task<Voivodeship> CheckVoivodeship(int voivodeshipId);
-        public Task<Voivodeship> PostVoivodeship(VoivodeshipRequest voivodeshipDetails);
+        public Task<VoivodeshipResponse> PostVoivodeship(VoivodeshipRequest voivodeshipDetails);
     }
 
     public class VoivodeshipRepository : IVoivodeshipRepository
@@ -46,16 +46,12 @@ namespace Warehouse.Repositories
                 .FirstOrDefaultAsync();
         }
 
-        public async Task<Voivodeship> PostVoivodeship(VoivodeshipRequest voivodeshipDetails)
+        public async Task<VoivodeshipResponse> PostVoivodeship(VoivodeshipRequest voivodeshipDetails)
         {
-            var voiovdeshipToAdd = new Voivodeship
-            {
-                VoivodeshipName = voivodeshipDetails.VoivodeshipName,
-                CountryId = voivodeshipDetails.CountryId,
-            };
-            await _context.Voivodeships.AddAsync(voiovdeshipToAdd);
+            var voiovdeshipToAdd = Voivodeship.RequestDTOToVoivodeship(voivodeshipDetails);
+            var addedVoivodeship = await _context.Voivodeships.AddAsync(voiovdeshipToAdd);
             await _context.SaveChangesAsync();
-            return voiovdeshipToAdd;
+            return Voivodeship.VoivodeshipToResponseDTO(addedVoivodeship.Entity);
         }
     }
 }

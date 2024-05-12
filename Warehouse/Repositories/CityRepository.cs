@@ -9,7 +9,7 @@ namespace Warehouse.Repositories
         public Task<List<CityResponse>> GetCities();
         public Task<CityResponse> GetCity(int cityId);
         public Task<City> CheckCity(int cityId);
-        public Task<City> PostCity(CityRequest cityDetails);
+        public Task<CityResponse> PostCity(CityRequest cityDetails);
     }
 
     public class CityRepository : ICityRepository
@@ -46,17 +46,12 @@ namespace Warehouse.Repositories
                 .FirstOrDefaultAsync();
         }
 
-        public async Task<City> PostCity(CityRequest cityDetails)
+        public async Task<CityResponse> PostCity(CityRequest cityDetails)
         {
-            var cityToAdd = new City
-            {
-                CityName = cityDetails.CityName,
-                PostalCode = cityDetails.PostalCode,
-                VoivodeshipId = cityDetails.VoivodeshipId
-            };
-            await _context.Cities.AddAsync(cityToAdd);
+            var cityToAdd = City.RequestDTOToCity(cityDetails);
+            var addedCity = await _context.Cities.AddAsync(cityToAdd);
             await _context.SaveChangesAsync();
-            return cityToAdd;
+            return City.CityToResponseDTO(addedCity.Entity);
         }
     }
 }

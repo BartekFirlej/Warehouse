@@ -50,8 +50,7 @@ namespace Warehouse.Services
         public async Task<AddressResponse> PostAddress(AddressRequest addressDetails)
         {
             await _cityService.CheckCity(addressDetails.CityId);
-            var addedAddress = await _addressRepository.PostAddress(addressDetails);
-            return Address.AddressToResponseDTO(addedAddress);
+            return await _addressRepository.PostAddress(addressDetails);
         }
     }
 }

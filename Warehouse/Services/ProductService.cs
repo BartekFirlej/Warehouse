@@ -50,8 +50,7 @@ namespace Warehouse.Services
         public async Task<ProductResponse> PostProduct(ProductRequest productDetails)
         {
             await _productTypeService.CheckProductType(productDetails.ProductTypeId);
-            var addedProduct = await _productRepository.PostProduct(productDetails);
-            return Product.ProductToResponseDTO(addedProduct);
+            return await _productRepository.PostProduct(productDetails);
         }
     }
 }

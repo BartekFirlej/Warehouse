@@ -50,8 +50,7 @@ namespace Warehouse.Services
         public async Task<CityResponse> PostCity(CityRequest cityDetails)
         {
             await _voivodeshipService.CheckVoivodeship(cityDetails.VoivodeshipId);
-            var addedCity = await _cityRepository.PostCity(cityDetails);
-            return City.CityToResponseDTO(addedCity);
+            return await _cityRepository.PostCity(cityDetails);
         }
     }
 }

@@ -15,7 +15,15 @@ public partial class OrderMethod
         return new OrderMethodResponse
         {
             OrderMethodId = orderMethod.OrderMethodId,
-            MethodName = orderMethod.MethodName,
+            MethodName = orderMethod.MethodName
+        };
+    }
+
+    public static OrderMethod RequestDTOToOrderMethod(OrderMethodRequest orderMethodDetails)
+    {
+        return new OrderMethod
+        {
+            MethodName = orderMethodDetails.MethodName
         };
     }
 }

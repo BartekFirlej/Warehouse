@@ -26,4 +26,14 @@ public partial class City
             VoivodeshipId = city.VoivodeshipId
         };
     }
+
+    public static City RequestDTOToCity(CityRequest cityDetails)
+    {
+        return new City
+        {
+            CityName = cityDetails.CityName,
+            PostalCode = cityDetails.PostalCode,
+            VoivodeshipId = cityDetails.VoivodeshipId
+        };
+    }
 }

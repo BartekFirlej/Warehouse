@@ -46,7 +46,7 @@ namespace Warehouse.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> PostReturnReason(RetunReasonRequest returnReasonDetails)
+        public async Task<IActionResult> PostReturnReason(ReturnReasonRequest returnReasonDetails)
         {
             ReturnReasonResponse addedReturnReason;
             try

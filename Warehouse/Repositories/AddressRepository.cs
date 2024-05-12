@@ -9,7 +9,7 @@ namespace Warehouse.Repositories
         public Task<List<AddressResponse>> GetAddresses();
         public Task<AddressResponse> GetAddress(int addressId);
         public Task<Address> CheckAddress(int addressId);
-        public Task<Address> PostAddress(AddressRequest addressDetails);
+        public Task<AddressResponse> PostAddress(AddressRequest addressDetails);
     }
 
     public class AddressRepository : IAddressRepository
@@ -46,16 +46,12 @@ namespace Warehouse.Repositories
                 .FirstOrDefaultAsync();
         }
 
-        public async Task<Address> PostAddress(AddressRequest addressDetails)
+        public async Task<AddressResponse> PostAddress(AddressRequest addressDetails)
         {
-            var addressToAdd = new Address
-            {
-                Number = addressDetails.Number,
-                CityId = addressDetails.CityId
-            };
-            await _context.Addresses.AddAsync(addressToAdd);
+            var addressToAdd = Address.RequestDTOToAddress(addressDetails);
+            var addedAddress = await _context.Addresses.AddAsync(addressToAdd);
             await _context.SaveChangesAsync();
-            return addressToAdd;
+            return Address.AddressToResponseDTO(addedAddress.Entity);
         }
     }
 }

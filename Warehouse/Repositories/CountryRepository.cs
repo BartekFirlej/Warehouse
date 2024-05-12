@@ -9,7 +9,7 @@ namespace Warehouse.Repositories
         public Task<List<CountryResponse>> GetCountries();
         public Task<CountryResponse> GetCountry(int countryId);
         public Task<Country> CheckCountry(int countryId);
-        public Task<Country> PostCountry(CountryRequest countryDetails);
+        public Task<CountryResponse> PostCountry(CountryRequest countryDetails);
     }
 
     public class CountryRepository : ICountryRepository
@@ -46,15 +46,12 @@ namespace Warehouse.Repositories
                 .FirstOrDefaultAsync();
         }
 
-        public async Task<Country> PostCountry(CountryRequest countryDetails)
+        public async Task<CountryResponse> PostCountry(CountryRequest countryDetails)
         {
-            var countryToAdd = new Country
-            {
-                CountryName = countryDetails.CountryName
-            };
-            await _context.Countries.AddAsync(countryToAdd);
+            var countryToAdd = Country.RequestDTOToCountryy(countryDetails);
+            var addedCountry = await _context.Countries.AddAsync(countryToAdd);
             await _context.SaveChangesAsync();
-            return countryToAdd;
+            return Country.CountryToResponseDTO(addedCountry.Entity);
         }
     }
 }

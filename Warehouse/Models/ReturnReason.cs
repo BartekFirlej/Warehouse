@@ -18,4 +18,12 @@ public partial class ReturnReason
             ReasonDescription = returnReason.ReasonDescription
         };
     }
+
+    public static ReturnReason RequestDTOToProductType(ReturnReasonRequest returnReasonDetails)
+    {
+        return new ReturnReason
+        {
+            ReasonDescription = returnReasonDetails.ReasonDescription
+        };
+    }
 }

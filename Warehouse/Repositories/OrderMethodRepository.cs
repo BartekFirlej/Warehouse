@@ -9,7 +9,7 @@ namespace Warehouse.Repositories
         public Task<List<OrderMethodResponse>> GetOrderMethods();
         public Task<OrderMethodResponse> GetOrderMethod(int orderMethodId);
         public Task<OrderMethod> CheckOrderMethod(int orderMethodId);
-        public Task<OrderMethod> PostOrderMethod(OrderMethodRequest orderMethodDetails);
+        public Task<OrderMethodResponse> PostOrderMethod(OrderMethodRequest orderMethodDetails);
     }
 
     public class OrderMethodRepository : IOrderMethodRepository
@@ -46,15 +46,12 @@ namespace Warehouse.Repositories
                .FirstOrDefaultAsync();
         }
 
-        public async Task<OrderMethod> PostOrderMethod(OrderMethodRequest orderMethodDetails)
+        public async Task<OrderMethodResponse> PostOrderMethod(OrderMethodRequest orderMethodDetails)
         {
-            var orderMethodToAdd = new OrderMethod
-            {
-                MethodName = orderMethodDetails.MethodName
-            };
-            await _context.OrderMethods.AddAsync(orderMethodToAdd);
+            var orderMethodToAdd = OrderMethod.RequestDTOToOrderMethod(orderMethodDetails);
+            var addedOrderMethod = await _context.OrderMethods.AddAsync(orderMethodToAdd);
             await _context.SaveChangesAsync();
-            return orderMethodToAdd;
+            return OrderMethod.ReturnOrderMethodToResponseDTO(addedOrderMethod.Entity);
         }
     }
 }

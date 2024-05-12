@@ -23,4 +23,13 @@ public partial class Voivodeship
             CountryId = voivodeship.CountryId
         };
     }
+
+    public static Voivodeship RequestDTOToVoivodeship(VoivodeshipRequest voivodeshipDetails)
+    {
+        return new Voivodeship
+        {
+            VoivodeshipName = voivodeshipDetails.VoivodeshipName,
+            CountryId = voivodeshipDetails.CountryId
+        };
+    }
 }

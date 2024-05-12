@@ -18,4 +18,12 @@ public partial class ProductType
             ProductTypeName = productType.ProductTypeName
         };
     }
+
+    public static ProductType RequestDTOToProductType(ProductTypeRequest productTypeDetails)
+    {
+        return new ProductType
+        {
+            ProductTypeName = productTypeDetails.ProductTypeName
+        };
+    }
 }

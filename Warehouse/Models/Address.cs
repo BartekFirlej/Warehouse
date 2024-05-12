@@ -23,4 +23,13 @@ public partial class Address
             CityId = address.CityId
         };
     }
+
+    public static Address RequestDTOToAddress(AddressRequest addressDetails)
+    {
+        return new Address
+        {
+            CityId = addressDetails.CityId,
+            Number = addressDetails.Number
+        };
+    }
 }

@@ -46,8 +46,7 @@ namespace Warehouse.Services
 
         public async Task<ProductTypeResponse> PostProductType(ProductTypeRequest productTypeDetails)
         {
-            var addedProductType = await _productTypeRepository.PostProductType(productTypeDetails);
-            return ProductType.ProductTypeToResponseDTO(addedProductType);
+            return await _productTypeRepository.PostProductType(productTypeDetails);
         }
     }
 }

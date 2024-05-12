@@ -50,8 +50,7 @@ namespace Warehouse.Services
         public async Task<VoivodeshipResponse> PostVoivodeship(VoivodeshipRequest voivodeshipDetails)
         {
             await _countryService.CheckCountry(voivodeshipDetails.CountryId);
-            var addedVoivodeship = await _voivodeshipRepository.PostVoivodeship(voivodeshipDetails);
-            return Voivodeship.VoivodeshipToResponseDTO(addedVoivodeship);
+            return await _voivodeshipRepository.PostVoivodeship(voivodeshipDetails);
         }
     }
 }
