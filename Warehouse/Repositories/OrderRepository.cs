@@ -51,7 +51,7 @@ namespace Warehouse.Repositories
             var orderToAdd = Order.RequestDTOToOrder(orderDetails);
             var addedOrder = await _context.Orders.AddAsync(orderToAdd);
             await _context.SaveChangesAsync();
-            return Order.OrderToResponseDTO(orderToAdd);
+            return Order.OrderToResponseDTO(addedOrder.Entity);
         }
     }
 }
