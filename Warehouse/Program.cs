@@ -8,30 +8,31 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddControllers();
 
-builder.Services.AddScoped<IProductTypeRepository, ProductTypeRepository>();
-builder.Services.AddScoped<IProductRepository, ProductRepository>();
-builder.Services.AddScoped<ICountryRepository, CountryRepository>();
-builder.Services.AddScoped<IVoivodeshipRepository, VoivodeshipRepository>();
-builder.Services.AddScoped<ICityRepository, CityRepository>();
 builder.Services.AddScoped<IAddressRepository, AddressRepository>();
-builder.Services.AddScoped<IReturnReasonRepository, ReturnReasonRepository>();
+builder.Services.AddScoped<ICityRepository, CityRepository>();
+builder.Services.AddScoped<ICountryRepository, CountryRepository>();
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
-builder.Services.AddScoped<IOrderMethodRepository, OrderMethodRepository>();
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<IOrderDetailRepository, OrderDetailRepository>();
+builder.Services.AddScoped<IOrderMethodRepository, OrderMethodRepository>();
+builder.Services.AddScoped<IOrderReturnRepository, OrderReturnRepository>();
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IProductTypeRepository, ProductTypeRepository>();
+builder.Services.AddScoped<IReturnReasonRepository, ReturnReasonRepository>();
+builder.Services.AddScoped<IVoivodeshipRepository, VoivodeshipRepository>();
 
-builder.Services.AddScoped<IProductTypeService, ProductTypeService>();
-builder.Services.AddScoped<IProductService, ProductService>();
-builder.Services.AddScoped<ICountryService, CountryService>();
-builder.Services.AddScoped<IVoivodeshipService, VoivodeshipService>();
-builder.Services.AddScoped<ICityService, CityService>();
 builder.Services.AddScoped<IAddressService, AddressService>();
-builder.Services.AddScoped<IReturnReasonService, ReturnReasonService>();
+builder.Services.AddScoped<ICityService, CityService>();
+builder.Services.AddScoped<ICountryService, CountryService>();
 builder.Services.AddScoped<ICustomerService, CustomerService>();
-builder.Services.AddScoped<IOrderMethodService, OrderMethodService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IOrderDetailService, OrderDetailService>();
-
+builder.Services.AddScoped<IOrderMethodService, OrderMethodService>();
+builder.Services.AddScoped<IOrderReturnService, OrderReturnService>();
+builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IProductTypeService, ProductTypeService>();
+builder.Services.AddScoped<IReturnReasonService, ReturnReasonService>();
+builder.Services.AddScoped<IVoivodeshipService, VoivodeshipService>();
 
 builder.Services.AddDbContext<WarehouseDbContext>();
 

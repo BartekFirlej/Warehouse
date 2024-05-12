@@ -30,7 +30,7 @@ namespace Warehouse.Controllers
             return Ok(orderMethods);
         }
 
-        [HttpGet("{returnreasonid}")]
+        [HttpGet("{ordermethodid}")]
         public async Task<IActionResult> GetOrderMethod(int ordermethodid)
         {
             OrderMethodResponse orderMethod;
