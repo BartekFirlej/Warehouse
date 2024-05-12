@@ -19,7 +19,6 @@
 
   <ItemGroup>
     <Folder Include="DatabaseScript\" />
-    <Folder Include="Models\" />
   </ItemGroup>
 
 </Project>

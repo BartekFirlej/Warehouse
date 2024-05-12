@@ -21,42 +21,6 @@ namespace Warehouse.Repositories
             _context = context;
         }
 
-        public async Task<List<ReturnReasonResponse>> GetReturnReasons()
-        {
-            return await _context.ReturnReasons
-               .AsNoTracking()
-               .Select(r => ReturnReason.ReturnReasonToResponseDTO(r))
-               .ToListAsync();
-        }
-
-        public async Task<ReturnReasonResponse> GetReturnReason(int returnReasonId)
-        {
-            return await _context.ReturnReasons
-                .AsNoTracking()
-                .Where(r => r.ReturnReasonId == returnReasonId)
-                .Select(r => ReturnReason.ReturnReasonToResponseDTO(r))
-                .FirstOrDefaultAsync();
-        }
-
-        public async Task<ReturnReason> CheckReturnReason(int returnReasonId)
-        {
-            return await _context.ReturnReasons
-                .AsNoTracking()
-                .Where(r => r.ReturnReasonId == returnReasonId)
-                .FirstOrDefaultAsync();
-        }
-
-        public async Task<ReturnReason> PostReturnReason(RetunReasonRequest returnReasonDetails)
-        {
-            var returnReasonToAdd = new ReturnReason
-            {
-                ReasonDescription = returnReasonDetails.ReasonDescription
-            };
-            await _context.ReturnReasons.AddAsync(returnReasonToAdd);
-            await _context.SaveChangesAsync();
-            return returnReasonToAdd;
-        }
-
         public async Task<List<OrderMethodResponse>> GetOrderMethods()
         {
             return await _context.OrderMethods

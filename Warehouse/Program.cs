@@ -15,6 +15,7 @@ builder.Services.AddScoped<IVoivodeshipRepository, VoivodeshipRepository>();
 builder.Services.AddScoped<ICityRepository, CityRepository>();
 builder.Services.AddScoped<IAddressRepository, AddressRepository>();
 builder.Services.AddScoped<IReturnReasonRepository, ReturnReasonRepository>();
+builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 
 builder.Services.AddScoped<IProductTypeService, ProductTypeService>();
 builder.Services.AddScoped<IProductService, ProductService>();
@@ -23,6 +24,7 @@ builder.Services.AddScoped<IVoivodeshipService, VoivodeshipService>();
 builder.Services.AddScoped<ICityService, CityService>();
 builder.Services.AddScoped<IAddressService, AddressService>();
 builder.Services.AddScoped<IReturnReasonService, ReturnReasonService>();
+builder.Services.AddScoped<ICustomerService, CustomerService>();
 
 
 builder.Services.AddDbContext<WarehouseDbContext>();
