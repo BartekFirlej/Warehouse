@@ -7,6 +7,7 @@ namespace Warehouse.Repositories
     public interface ICustomerRepository
     {
         public Task<List<CustomerResponse>> GetCustomers();
+        public Task<List<CustomerWithAddressResponse>> GetCustomersWithAddresses();
         public Task<CustomerResponse> GetCustomer(int customerId);
         public Task<Customer> CheckCustomer(int customerId);
         public Task<Customer> PostCustomer(CustomerRequest customerDetails);
@@ -26,6 +27,18 @@ namespace Warehouse.Repositories
             return await _context.Customers
                 .AsNoTracking()
                 .Select(c => Customer.CustomerToResponseDTO(c))
+                .ToListAsync();
+        }
+
+        public async Task<List<CustomerWithAddressResponse>> GetCustomersWithAddresses()
+        {
+            return await _context.Customers
+                .AsNoTracking()
+                .Include(c => c.Address)
+                .ThenInclude(a => a.City)
+                .ThenInclude(c => c.Voivodeship)
+                .ThenInclude(v => v.Country)
+                .Select(c => Customer.CustomerToCustomerWithAddressResponseDTO(c))
                 .ToListAsync();
         }
 

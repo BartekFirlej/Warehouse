@@ -33,6 +33,27 @@ public partial class Customer
         };
     }
 
+    public static CustomerWithAddressResponse CustomerToCustomerWithAddressResponseDTO(Customer customer)
+    {
+        return new CustomerWithAddressResponse
+        {
+            CustomerId = customer.CustomerId,
+            CustomerName = customer.CustomerName,
+            CustomerLastName = customer.CustomerLastName,
+            Email = customer.Email,
+            Phone = customer.Phone,
+            AddressId = customer.AddressId,
+            Number = customer.Address.Number,
+            CityId = customer.Address.CityId,
+            CityName = customer.Address.City.CityName,
+            PostalCode = customer.Address.City.PostalCode,
+            VoivodeshipId = customer.Address.City.VoivodeshipId,
+            VoivodeshipName = customer.Address.City.Voivodeship.VoivodeshipName,
+            CountryId = customer.Address.City.Voivodeship.CountryId,
+            CountryName = customer.Address.City.Voivodeship.Country.CountryName
+        };
+    }
+
     public static Customer RequestDTOToCustomer(CustomerRequest customerDetails)
     {
         return new Customer

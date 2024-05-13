@@ -23,7 +23,7 @@ namespace Warehouse.Controllers
         public async Task<IActionResult> GetVisitsStream(int durationSeconds, int requestsPerSecond)
         {
             List<ProductWithProductTypeResponse> products = await _productService.GetProductsWithProductTypes();
-            List<CustomerResponse> customers = await _customerService.GetCustomers();
+            List<CustomerWithAddressResponse> customers = await _customerService.GetCustomersWithAddresses();
 
             TimeSpan delay = TimeSpan.FromSeconds(1.0 / requestsPerSecond);
 
@@ -47,7 +47,15 @@ namespace Warehouse.Controllers
                     Price = randomProduct.Price,
                     ProductName = randomProduct.ProductName,
                     ProductTypeId = randomProduct.ProductTypeId,
-                    ProductTypeName = randomProduct.ProductTypeName
+                    ProductTypeName = randomProduct.ProductTypeName,
+                    Number = randomCustomer.Number,
+                    CityId = randomCustomer.CityId,
+                    CityName = randomCustomer.CityName,
+                    PostalCode = randomCustomer.PostalCode,
+                    VoivodeshipId = randomCustomer.VoivodeshipId,
+                    VoivodeshipName = randomCustomer.VoivodeshipName,
+                    CountryId = randomCustomer.CountryId,
+                    CountryName = randomCustomer.CountryName
                 };
 
                 Console.WriteLine(productView);

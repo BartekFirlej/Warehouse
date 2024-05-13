@@ -30,6 +30,21 @@ namespace Warehouse.Controllers
             return Ok(customers);
         }
 
+        [HttpGet("addresses")]
+        public async Task<IActionResult> GetCustomersWithAddresses()
+        {
+            List<CustomerWithAddressResponse> customers;
+            try
+            {
+                customers = await _customerService.GetCustomersWithAddresses();
+            }
+            catch (Exception e)
+            {
+                return NotFound(e.Message);
+            }
+            return Ok(customers);
+        }
+
         [HttpGet("{customerid}")]
         public async Task<IActionResult> GetCustomers(int customerid)
         {

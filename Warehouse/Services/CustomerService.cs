@@ -7,6 +7,7 @@ namespace Warehouse.Services
     public interface ICustomerService
     {
         public Task<List<CustomerResponse>> GetCustomers();
+        public Task<List<CustomerWithAddressResponse>> GetCustomersWithAddresses();
         public Task<CustomerResponse> GetCustomer(int customerId);
         public Task<Customer> CheckCustomer(int customerId);
         public Task<CustomerResponse> PostCustomer(CustomerRequest customerDetails);
@@ -26,6 +27,14 @@ namespace Warehouse.Services
         public async Task<List<CustomerResponse>> GetCustomers()
         {
             var customers = await _customerRepository.GetCustomers();
+            if (!customers.Any())
+                throw new Exception("Not found any customers.");
+            return customers;
+        }
+
+        public async Task<List<CustomerWithAddressResponse>> GetCustomersWithAddresses()
+        {
+            var customers = await _customerRepository.GetCustomersWithAddresses();
             if (!customers.Any())
                 throw new Exception("Not found any customers.");
             return customers;
