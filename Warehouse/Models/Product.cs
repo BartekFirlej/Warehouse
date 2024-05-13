@@ -36,4 +36,16 @@ public partial class Product
             ProductTypeId = productDetails.ProductTypeId
         };
     }
+
+    public static ProductWithProductTypeResponse ProductToProductWithProductTypeResponseDTO(Product product)
+    {
+        return new ProductWithProductTypeResponse
+        {
+            ProductId = product.ProductId,
+            ProductName = product.ProductName,
+            Price = product.Price,
+            ProductTypeId = product.ProductTypeId,
+            ProductTypeName = product.ProductType.ProductTypeName
+        };
+    }
 }

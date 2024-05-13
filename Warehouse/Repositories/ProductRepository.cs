@@ -7,6 +7,7 @@ namespace Warehouse.Repositories
     public interface IProductRepository
     {
         public Task<List<ProductResponse>> GetProducts();
+        public Task<List<ProductWithProductTypeResponse>> GetProductsWithProductTypes();
         public Task<ProductResponse> GetProduct(int productId);
         public Task<Product> CheckProduct(int productId);
         public Task<ProductResponse> PostProduct(ProductRequest productDetails);
@@ -26,6 +27,15 @@ namespace Warehouse.Repositories
             return await _context.Products
                 .AsNoTracking()
                 .Select(p => Product.ProductToResponseDTO(p))
+                .ToListAsync();
+        }
+
+        public async Task<List<ProductWithProductTypeResponse>> GetProductsWithProductTypes()
+        {
+            return await _context.Products
+                .AsNoTracking()
+                .Include(p => p.ProductType)
+                .Select(p => Product.ProductToProductWithProductTypeResponseDTO(p))
                 .ToListAsync();
         }
 

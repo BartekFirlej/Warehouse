@@ -30,6 +30,21 @@ namespace Warehouse.Controllers
             return Ok(products);
         }
 
+        [HttpGet("types")]
+        public async Task<IActionResult> GetProductsWithProductTypes()
+        {
+            List<ProductWithProductTypeResponse> products;
+            try
+            {
+                products = await _productService.GetProductsWithProductTypes();
+            }
+            catch (Exception e)
+            {
+                return NotFound(e.Message);
+            }
+            return Ok(products);
+        }
+
         [HttpGet("{productid}")]
         public async Task<IActionResult> GetProduct(int productid)
         {

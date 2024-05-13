@@ -1,7 +1,4 @@
-﻿using static System.Net.Mime.MediaTypeNames;
-using static System.Runtime.InteropServices.JavaScript.JSType;
-
-namespace Warehouse.DTOs
+﻿namespace Warehouse.DTOs
 {
     public class CustomerProductResponse
     {
@@ -10,6 +7,8 @@ namespace Warehouse.DTOs
         public string ProductName { get; set; } = null!;
 
         public int ProductTypeId { get; set; }
+
+        public string ProductTypeName { get; set; } = null!;
 
         public decimal Price { get; set; }
 
@@ -28,7 +27,7 @@ namespace Warehouse.DTOs
         public override string ToString()
         {
             return $"ProductId: {ProductId}, ProductName: {ProductName}, ProductTypeId: {ProductTypeId}, " +
-                   $"Price: {Price}, CustomerId: {CustomerId}, CustomerName: {CustomerName}, " +
+                   $"ProductTypeName: {ProductTypeName}, Price: {Price}, CustomerId: {CustomerId}, CustomerName: {CustomerName}, " +
                    $"CustomerLastName: {CustomerLastName}, Email: {Email}, Phone: {Phone}, " +
                    $"AddressId: {AddressId}";
         }

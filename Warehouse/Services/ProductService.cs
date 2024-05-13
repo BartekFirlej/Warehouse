@@ -7,6 +7,7 @@ namespace Warehouse.Services
     public interface IProductService
     {
         public Task<List<ProductResponse>> GetProducts();
+        public Task<List<ProductWithProductTypeResponse>> GetProductsWithProductTypes();
         public Task<ProductResponse> GetProduct(int productId);
         public Task<Product> CheckProduct(int productId);
         public Task<ProductResponse> PostProduct(ProductRequest productDetails);
@@ -26,6 +27,14 @@ namespace Warehouse.Services
         public async Task<List<ProductResponse>> GetProducts()
         {
             var products = await _productRepository.GetProducts();
+            if (!products.Any())
+                throw new Exception("Not found any products.");
+            return products;
+        }
+
+        public async Task<List<ProductWithProductTypeResponse>> GetProductsWithProductTypes()
+        {
+            var products = await _productRepository.GetProductsWithProductTypes();
             if (!products.Any())
                 throw new Exception("Not found any products.");
             return products;
