@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Text.Json;
 using Warehouse.DTOs;
 using Warehouse.Services;
 using static System.Runtime.InteropServices.JavaScript.JSType;
@@ -12,11 +13,13 @@ namespace Warehouse.Controllers
     {
         private readonly ICustomerService _customerService;
         private readonly IProductService _productService;
+        private readonly IKafkaProducerService _kafkaProducerService;
 
-        public StreamController(ICustomerService customerService, IProductService productService)
+        public StreamController(ICustomerService customerService, IProductService productService, IKafkaProducerService kafkaProducerService)
         {
             _customerService = customerService;
             _productService = productService;
+            _kafkaProducerService = kafkaProducerService;
         }
 
         [HttpGet]
@@ -58,7 +61,11 @@ namespace Warehouse.Controllers
                     CountryName = randomCustomer.CountryName
                 };
 
-                Console.WriteLine(productView);
+                string json = JsonSerializer.Serialize(productView, new JsonSerializerOptions { WriteIndented = true });
+
+                Console.WriteLine(json);
+
+                await _kafkaProducerService.ProduceCustomerProduct("productView", json);
 
                 await Task.Delay(delay);
             }

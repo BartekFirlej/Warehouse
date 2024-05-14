@@ -1,3 +1,4 @@
+using Confluent.Kafka;
 using Warehouse;
 using Warehouse.Repositories;
 using Warehouse.Services;
@@ -7,6 +8,13 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddControllers();
+
+builder.Services.AddSingleton<ProducerConfig>(new ProducerConfig
+{
+    BootstrapServers = "localhost:9092"
+});
+
+builder.Services.AddSingleton<IKafkaProducerService, KafkaProducerService>();
 
 builder.Services.AddScoped<IAddressRepository, AddressRepository>();
 builder.Services.AddScoped<ICityRepository, CityRepository>();
