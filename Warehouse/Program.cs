@@ -11,7 +11,7 @@ builder.Services.AddControllers();
 
 builder.Services.AddSingleton<ProducerConfig>(new ProducerConfig
 {
-    BootstrapServers = "localhost:9092"
+    BootstrapServers = "kafka:9092"
 });
 
 builder.Services.AddSingleton<IKafkaProducerService, KafkaProducerService>();

@@ -1,5 +1,4 @@
 ﻿using Confluent.Kafka;
-using Warehouse.DTOs;
 
 namespace Warehouse.Services
 {
